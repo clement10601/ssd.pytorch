@@ -58,7 +58,8 @@ accum_batch_size = 32
 iter_size = accum_batch_size / batch_size
 max_iter = 120000
 weight_decay = 0.0005
-stepvalues = (80000, 100000, 120000)
+#stepvalues = (80000, 100000, 120000)
+stepvalues = (80, 100, 120)
 gamma = 0.1
 momentum = 0.9
 
@@ -118,7 +119,9 @@ def train():
     dataset = VOCDetection(args.voc_root, train_sets, SSDAugmentation(
         ssd_dim, means), AnnotationTransform())
 
-    epoch_size = len(dataset) // args.batch_size
+    epoch_size = len(dataset)  // args.batch_size
+    # epoch_size = 1
+    print('epoch_size: ',epoch_size)
     print('Training SSD on', dataset.name)
     step_index = 0
     if args.visdom:
